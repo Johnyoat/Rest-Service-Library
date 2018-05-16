@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RestService</string>
+    <string name="rest_data">Rest Data!</string>
+    <string name="fetch_data">Fetch Data</string>
+</resources>

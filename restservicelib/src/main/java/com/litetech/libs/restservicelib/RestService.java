@@ -38,12 +38,22 @@ public class RestService extends AsyncTask<String, Void, String> {
     }
 
 
-
     private String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+
+        return response.body().string();
+    }
+
+    private String put(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .put(body)
                 .build();
         Response response = client.newCall(request).execute();
 
@@ -70,9 +80,15 @@ public class RestService extends AsyncTask<String, Void, String> {
     }
 
     private String restCall(String... strings) throws IOException {
-        String restResponse;
-        if (strings.length == 2) {
-            restResponse = post(strings[0], strings[1]);
+        String restResponse = "";
+        if (strings.length == 3) {
+            String key = strings[2];
+
+            if (key.equalsIgnoreCase("put")) {
+                restResponse = put(strings[0], strings[1]);
+            } else if (key.equalsIgnoreCase("post")) {
+                restResponse = post(strings[0], strings[1]);
+            }
         } else {
             restResponse = get(strings[0]);
         }
@@ -81,7 +97,7 @@ public class RestService extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        callBack.onResult(s,this.apiType);
+        callBack.onResult(s, this.apiType);
     }
 
     public interface CallBack {

@@ -32,7 +32,7 @@ allprojects {
 
 Step 2. Add the dependency
 ```groovy
-implementation 'com.github.Johnyoat:non-swipe-view-pager:1.0.0'
+implementation 'com.github.Johnyoat:rest-service-lib:0.4'
 implementation 'com.google.code.gson:gson:2.8.5'
 ```
 

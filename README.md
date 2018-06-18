@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements RestService.CallB
 ```
 
 
-###Get Method
+### Get Method ###
 ```java
 restService.execute(restUrl);
 ```
 
-###Serializing 
+### Serializing ###
 You can use any json serializing libray but I'll use GSON in this example
 
 ```java
@@ -114,12 +114,12 @@ String json = new Gson().toJson(obj);
 
 
 
-###Post
+### Post ###
 ```java
 restService.execute(restUrl,json,"post");
 ```
 
-###Put
+### Put ###
 ```java
 restService.execute(restUrl,json,"put");
 ```

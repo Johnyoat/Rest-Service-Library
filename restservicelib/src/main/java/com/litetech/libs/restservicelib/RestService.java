@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.function.BiConsumer;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -20,6 +22,7 @@ public class RestService extends AsyncTask<String, Void, String> {
     private OkHttpClient client = new OkHttpClient();
     private CallBack callBack;
     private String apiType;
+    private HashMap<String, String> headers = new HashMap<>();
 
     public RestService(@NonNull CallBack callBack) {
         this.callBack = callBack;
@@ -40,10 +43,14 @@ public class RestService extends AsyncTask<String, Void, String> {
 
     private String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
+        final Request.Builder builder = new Request.Builder()
                 .url(url)
-                .post(body)
-                .build();
+                .post(body);
+
+        addHeaders(builder);
+
+
+        Request request = builder.build();
         Response response = client.newCall(request).execute();
 
         return response.body().string();
@@ -51,13 +58,29 @@ public class RestService extends AsyncTask<String, Void, String> {
 
     private String put(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
+
+        final Request.Builder builder = new Request.Builder()
                 .url(url)
-                .put(body)
-                .build();
+                .put(body);
+
+        addHeaders(builder);
+
+
+        Request request = builder.build();
         Response response = client.newCall(request).execute();
 
         return response.body().string();
+    }
+
+    private void addHeaders(final Request.Builder builder) {
+        if (getHeaders() != null & getHeaders().size() > 0) {
+            headers.forEach(new BiConsumer<String, String>() {
+                @Override
+                public void accept(String s, String s2) {
+                    builder.addHeader(s, s2);
+                }
+            });
+        }
     }
 
     @Override
@@ -93,6 +116,14 @@ public class RestService extends AsyncTask<String, Void, String> {
             restResponse = get(strings[0]);
         }
         return restResponse;
+    }
+
+    public HashMap<String, String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(HashMap<String, String> headers) {
+        this.headers = headers;
     }
 
     @Override

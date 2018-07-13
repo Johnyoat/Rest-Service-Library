@@ -32,10 +32,13 @@ public class RestService extends AsyncTask<String, Void, String> {
     }
 
     private String get(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+        final Request.Builder builder = new Request.Builder()
+                .url(url);
 
+        addHeaders(builder);
+
+
+        Request request = builder.build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }

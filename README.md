@@ -1,8 +1,10 @@
 # A Simple Rest Library for android
 This library is a simple state manager written in Java for android
 
-### Sdk Version ###
-`compileSdkVersion` >= 25
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Rest%20Service%20Library-green.svg?style=flat )]( https://android-arsenal.com/details/1/7029 )
+
+### SDK Requiremnet ###
+ minSdkVersion >= 15 (Android 4 and above )
 
 ### Importing to project ###
 
@@ -96,6 +98,14 @@ public class MainActivity extends AppCompatActivity implements RestService.CallB
     }
 }
 
+```
+
+### Adding Headers (Optional) ###
+```java
+HashMap<String,String> headers = new HashMap<>();
+// headers.put("HeaderName","Value");
+headers.put("origin","*")
+restService.setHeaders(headers);
 ```
 
 

@@ -1,5 +1,5 @@
 # A Simple Rest Library for android
-This library is a simple state manager written in Java for android
+This library is a simple Rest Service library that consume rest api written in Java for android
 
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Rest%20Service%20Library-green.svg?style=flat )]( https://android-arsenal.com/details/1/7029 )
 
